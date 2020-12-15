@@ -56,7 +56,15 @@ public class Neighbour implements Parcelable {
         address = in.readString();
         phoneNumber = in.readString();
         aboutMe = in.readString();
-        favorite = in.readByte() != 0;
+        favorite = in.readInt() != 0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Neighbour neighbour = (Neighbour) o;
+        return Objects.equals(id, neighbour.id);
     }
 
     @Override
@@ -67,7 +75,7 @@ public class Neighbour implements Parcelable {
         dest.writeString(address);
         dest.writeString(phoneNumber);
         dest.writeString(aboutMe);
-        dest.writeByte((byte) (favorite ? 1 : 0));
+        dest.writeInt(favorite ? 1 : 0);
     }
 
     @Override

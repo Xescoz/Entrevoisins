@@ -1,9 +1,6 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_detail;
 
-import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,18 +12,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
-import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
-import com.openclassrooms.entrevoisins.events.UpdateNeighbourEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
-import com.openclassrooms.entrevoisins.ui.neighbour_list.AddNeighbourActivity;
-
-import org.greenrobot.eventbus.EventBus;
-import org.w3c.dom.Text;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class DetailNeighbourActivity extends AppCompatActivity {
 
@@ -49,10 +39,7 @@ public class DetailNeighbourActivity extends AppCompatActivity {
     @BindView(R.id.add_favorite)
     FloatingActionButton addFavorite;
 
-
-
     private NeighbourApiService mApiService;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

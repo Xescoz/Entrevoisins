@@ -34,7 +34,6 @@ public class NeighbourFragment extends Fragment {
      * @return @{@link NeighbourFragment}
      */
     public static NeighbourFragment newInstance(int position) {
-
         NeighbourFragment fragment = new NeighbourFragment();
         return fragment;
     }
@@ -89,11 +88,6 @@ public class NeighbourFragment extends Fragment {
     @Subscribe
     public void onDeleteNeighbour(DeleteNeighbourEvent event) {
         mApiService.deleteNeighbour(event.neighbour);
-        initList();
-    }
-    @Subscribe
-    public void onUpdateNeighbour(DeleteNeighbourEvent event) {
-        mApiService.updateNeighbour(event.neighbour);
         initList();
     }
 }

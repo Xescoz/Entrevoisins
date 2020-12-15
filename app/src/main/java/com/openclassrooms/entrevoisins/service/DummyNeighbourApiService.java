@@ -51,5 +51,7 @@ public class DummyNeighbourApiService implements  NeighbourApiService {
         Log.d("position Detail", ""+position);
         Log.d("position Detail", ""+neighbours.contains(neighbour));
         neighbours.get(position).setFavorite(!neighbour.isFavorite());
+        //neighbour.setFavorite(!neighbour.isFavorite());
+        //neighbours.remove(neighbour);
     }
 }
