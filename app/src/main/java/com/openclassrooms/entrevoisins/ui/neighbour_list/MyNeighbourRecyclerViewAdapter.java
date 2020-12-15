@@ -17,6 +17,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
+import com.openclassrooms.entrevoisins.ui.neighbour_detail.DetailNeighbourActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -59,16 +60,11 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
                 EventBus.getDefault().post(new DeleteNeighbourEvent(neighbour));
             }
         });
-
         holder.neighbourLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, DetailNeighbourActivity.class);
-                intent.putExtra("AvatarUrl",neighbour.getAvatarUrl());
-                intent.putExtra("Name",neighbour.getName());
-                intent.putExtra("Address",neighbour.getAddress());
-                intent.putExtra("PhoneNumber",neighbour.getPhoneNumber());
-                intent.putExtra("AboutMe",neighbour.getAboutMe());
+                intent.putExtra("Neighbour",neighbour);
                 activity.startActivity(intent);
             }
         });
