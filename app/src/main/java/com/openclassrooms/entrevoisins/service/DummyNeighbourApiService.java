@@ -13,7 +13,7 @@ import java.util.List;
 public class DummyNeighbourApiService implements  NeighbourApiService {
 
     private List<Neighbour> neighbours = DummyNeighbourGenerator.generateNeighbours();
-    private List<Neighbour> favoriteNeighbours = new ArrayList<>();
+
 
     /**
      * {@inheritDoc}
@@ -25,6 +25,7 @@ public class DummyNeighbourApiService implements  NeighbourApiService {
 
     @Override
     public List<Neighbour> getFavoritesNeighbours() {
+        List<Neighbour> favoriteNeighbours = new ArrayList<>();
         for(int i = 0 ; i<neighbours.size(); i++ ){
             if (neighbours.get(i).isFavorite() && !favoriteNeighbours.contains(neighbours.get(i)))
                     favoriteNeighbours.add(neighbours.get(i));

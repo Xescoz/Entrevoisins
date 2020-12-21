@@ -29,7 +29,7 @@ public class NeighbourFragment extends Fragment {
     private NeighbourApiService mApiService;
     private List<Neighbour> mNeighbours;
     private RecyclerView mRecyclerView;
-    private static int page;
+    private int page;
 
 
     /**
@@ -37,8 +37,10 @@ public class NeighbourFragment extends Fragment {
      * @return @{@link NeighbourFragment}
      */
     public static NeighbourFragment newInstance(int position) {
-        page = position;
+        Bundle args = new Bundle();
+        args.putInt("position", position);
         NeighbourFragment fragment = new NeighbourFragment();
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -63,6 +65,8 @@ public class NeighbourFragment extends Fragment {
      * Init the List of neighbours
      */
     private void initList() {
+        Bundle args = getArguments();
+        page = args.getInt("position");
         if(page == 0)
             mNeighbours = mApiService.getNeighbours();
         else
