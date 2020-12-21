@@ -61,7 +61,6 @@ public class DetailNeighbourActivity extends AppCompatActivity {
                 else{
                 addFavorite.setImageResource(R.drawable.ic_star_yellow_24dp);
                 }
-                Log.d("Detail neighbour", ""+neighbour.toString());
                 mApiService.updateNeighbour(neighbour);
             }
         });
