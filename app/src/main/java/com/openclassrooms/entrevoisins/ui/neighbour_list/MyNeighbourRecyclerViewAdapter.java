@@ -29,13 +29,11 @@ import butterknife.ButterKnife;
 public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeighbourRecyclerViewAdapter.ViewHolder> {
 
     private final List<Neighbour> mNeighbours;
-    private Context context;
     private Activity activity;
 
-    public MyNeighbourRecyclerViewAdapter(List<Neighbour> items,Activity activity, Context context) {
+    public MyNeighbourRecyclerViewAdapter(List<Neighbour> items,Activity activity) {
         mNeighbours = items;
         this.activity = activity;
-        this.context = context;
     }
 
     @Override
@@ -63,7 +61,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         holder.neighbourLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, DetailNeighbourActivity.class);
+                Intent intent = new Intent(activity.getApplicationContext(), DetailNeighbourActivity.class);
                 intent.putExtra("Neighbour",neighbour);
                 activity.startActivity(intent);
             }

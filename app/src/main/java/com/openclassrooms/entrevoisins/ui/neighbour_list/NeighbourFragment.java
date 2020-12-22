@@ -67,11 +67,8 @@ public class NeighbourFragment extends Fragment {
     private void initList() {
         Bundle args = getArguments();
         page = args.getInt("position");
-        if(page == 0)
-            mNeighbours = mApiService.getNeighbours();
-        else
-            mNeighbours = mApiService.getFavoritesNeighbours();
-        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours, getActivity(),getActivity().getApplicationContext()));
+        mNeighbours = (page == 0) ? mApiService.getNeighbours() : mApiService.getFavoritesNeighbours();
+        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours, getActivity()));
     }
 
     @Override
