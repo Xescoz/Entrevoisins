@@ -34,6 +34,12 @@ public class NeighbourServiceTest {
         List<Neighbour> expectedNeighbours = DummyNeighbourGenerator.DUMMY_NEIGHBOURS;
         assertThat(neighbours, IsIterableContainingInAnyOrder.containsInAnyOrder(expectedNeighbours.toArray()));
     }
+    @Test
+    public void UpdateNeighbourWithSuccess() {
+        service.updateNeighbour(service.getNeighbours().get(0));
+        service.updateNeighbour(service.getNeighbours().get(0));
+        assertTrue(service.getNeighbours().get(0).isFavorite());
+    }
 
     @Test
     public void getFavoritesNeighboursWithSuccess(){
@@ -54,10 +60,5 @@ public class NeighbourServiceTest {
         service.createNeighbour(neighbourToAdd);
         assertTrue(service.getNeighbours().contains(neighbourToAdd));
     }
-    @Test
-    public void UpdateNeighbourWithSuccess() {
-        Neighbour neighbourToUpdate = service.getNeighbours().get(0);
-        service.updateNeighbour(neighbourToUpdate);
-        assertTrue(service.getNeighbours().get(0).isFavorite());
-    }
+
 }
