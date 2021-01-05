@@ -36,14 +36,14 @@ public class NeighbourServiceTest {
     }
     @Test
     public void UpdateNeighbourWithSuccess() {
-        service.updateNeighbour(service.getNeighbours().get(0));
-        service.updateNeighbour(service.getNeighbours().get(0));
+        service.switchNeighbour(service.getNeighbours().get(0));
+        service.switchNeighbour(service.getNeighbours().get(0));
         assertTrue(service.getNeighbours().get(0).isFavorite());
     }
 
     @Test
     public void getFavoritesNeighboursWithSuccess(){
-        service.updateNeighbour(service.getNeighbours().get(0));
+        service.switchNeighbour(service.getNeighbours().get(0));
         List<Neighbour> favoritesNeighbours = service.getFavoritesNeighbours();
         assertTrue(favoritesNeighbours.get(0).isFavorite());
     }

@@ -38,6 +38,6 @@ public interface NeighbourApiService {
      * Update a neighbour
      * @param neighbour
      */
-    void updateNeighbour(Neighbour neighbour);
+    void switchNeighbour(Neighbour neighbour);
 
 }

@@ -23,6 +23,9 @@ public class DummyNeighbourApiService implements  NeighbourApiService {
         return neighbours;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Neighbour> getFavoritesNeighbours() {
         List<Neighbour> favoriteNeighbours = new ArrayList<>();
@@ -56,7 +59,7 @@ public class DummyNeighbourApiService implements  NeighbourApiService {
      */
 
     @Override
-    public void updateNeighbour(Neighbour neighbour) {
+    public void switchNeighbour(Neighbour neighbour) {
         int position = neighbours.indexOf(neighbour);
         neighbours.get(position).setFavorite(!neighbour.isFavorite());
     }
