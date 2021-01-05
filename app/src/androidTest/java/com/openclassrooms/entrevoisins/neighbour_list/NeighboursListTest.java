@@ -9,6 +9,9 @@ import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 
 import com.openclassrooms.entrevoisins.R;
+import com.openclassrooms.entrevoisins.di.DI;
+import com.openclassrooms.entrevoisins.model.Neighbour;
+import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 import com.openclassrooms.entrevoisins.ui.neighbour_list.ListNeighbourActivity;
 import com.openclassrooms.entrevoisins.utils.DeleteViewAction;
 
@@ -26,6 +29,11 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
 import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withHint;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.openclassrooms.entrevoisins.utils.RecyclerViewItemCountAssertion.withDrawable;
 import static com.openclassrooms.entrevoisins.utils.RecyclerViewItemCountAssertion.withItemCount;
 import static org.hamcrest.core.IsNull.notNullValue;
 
@@ -42,6 +50,8 @@ public class NeighboursListTest {
 
     private ListNeighbourActivity mActivity;
 
+    private NeighbourApiService mApiService;
+
     @Rule
     public ActivityTestRule<ListNeighbourActivity> mActivityRule =
             new ActivityTestRule(ListNeighbourActivity.class);
@@ -50,6 +60,7 @@ public class NeighboursListTest {
     public void setUp() {
         mActivity = mActivityRule.getActivity();
         assertThat(mActivity, notNullValue());
+        mApiService = DI.getNeighbourApiService();
     }
 
     /**
@@ -82,15 +93,25 @@ public class NeighboursListTest {
      */
     @Test
     public void myNeighboursList_selectAction_shouldOpenDetailActivity(){
+        Neighbour neighbour = mApiService.getNeighbours().get(0);
         onView(withIndex(ViewMatchers.withId(R.id.list_neighbours),0))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        onView(withId(R.id.item_avatar_name)).check(matches(withText(neighbour.getName())));
     }
 
     /**
-     * Favorite tab show only favorite neighbours
+     * Favorite tab should only contain favorites neighbour
      */
+    @Test
     public void myNeighboursList_favoriteTab_shouldOnlyContainFavoriteNeighbour(){
-        //onView(withIndex(ViewMatchers.withId(R.id.list_neighbours),1)).check(matches());
+        onView(withIndex(ViewMatchers.withId(R.id.list_neighbours),0))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        onView(withId(R.id.add_favorite)).perform(click());
+        onView(withId(R.id.item_detail_back_button)).perform(click());
+        onView(withText("Favorites")).perform(click());
+        onView(withIndex(ViewMatchers.withId(R.id.list_neighbours),1))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        onView(withId(R.id.add_favorite)).check(matches(withDrawable(R.drawable.ic_star_yellow_24dp)));
     }
 
     public static Matcher<View> withIndex(final Matcher<View> matcher, final int index) {
@@ -109,5 +130,6 @@ public class NeighboursListTest {
                 return matcher.matches(view) && currentIndex++ == index;
             }
         };
+
     }
 }
