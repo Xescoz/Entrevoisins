@@ -23,6 +23,7 @@ public class RecyclerViewItemCountAssertion implements ViewAssertion {
             return new DrawableMatcher(resourceId);
         }
 
+
         private RecyclerViewItemCountAssertion(Matcher<Integer> matcher) {
             this.matcher = matcher;
         }

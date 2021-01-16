@@ -87,7 +87,6 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         public ConstraintLayout neighbourLayout;
 
         public ViewHolder(View view) {
-
             super(view);
             ButterKnife.bind(this, view);
         }

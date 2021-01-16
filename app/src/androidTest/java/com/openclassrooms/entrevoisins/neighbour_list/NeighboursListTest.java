@@ -3,9 +3,11 @@ package com.openclassrooms.entrevoisins.neighbour_list;
 
 
 import android.support.test.espresso.contrib.RecyclerViewActions;
+import android.support.test.espresso.contrib.ViewPagerActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.openclassrooms.entrevoisins.R;
@@ -25,6 +27,7 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
@@ -94,8 +97,10 @@ public class NeighboursListTest {
     @Test
     public void myNeighboursList_selectAction_shouldOpenDetailActivity(){
         Neighbour neighbour = mApiService.getNeighbours().get(0);
+        // Given : We open the detail activity at position 0 when we click on the layout
         onView(withIndex(ViewMatchers.withId(R.id.list_neighbours),0))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        // Then : the name in the activity is the same as the layout
         onView(withId(R.id.item_avatar_name)).check(matches(withText(neighbour.getName())));
     }
 
@@ -104,13 +109,19 @@ public class NeighboursListTest {
      */
     @Test
     public void myNeighboursList_favoriteTab_shouldOnlyContainFavoriteNeighbour(){
+        // First we click on position 0
         onView(withIndex(ViewMatchers.withId(R.id.list_neighbours),0))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        // in the detail activity it open we click on the add favorite button
         onView(withId(R.id.add_favorite)).perform(click());
+        // then we click on the back button
         onView(withId(R.id.item_detail_back_button)).perform(click());
-        onView(withText("Favorites")).perform(click());
+        // we scroll right to open the other tab
+        onView(withId(R.id.container)).perform(ViewPagerActions.scrollRight());
+        // we click on position 0
         onView(withIndex(ViewMatchers.withId(R.id.list_neighbours),1))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        // the star of the button is yellow so it's a favorite
         onView(withId(R.id.add_favorite)).check(matches(withDrawable(R.drawable.ic_star_yellow_24dp)));
     }
 

@@ -35,10 +35,9 @@ public class NeighbourServiceTest {
         assertThat(neighbours, IsIterableContainingInAnyOrder.containsInAnyOrder(expectedNeighbours.toArray()));
     }
     @Test
-    public void UpdateNeighbourWithSuccess() {
-        service.switchNeighbour(service.getNeighbours().get(0));
-        service.switchNeighbour(service.getNeighbours().get(0));
-        assertTrue(service.getNeighbours().get(0).isFavorite());
+    public void switchNeighbourWithSuccess() {
+        service.switchNeighbour(service.getNeighbours().get(1));
+        assertTrue(service.getNeighbours().get(1).isFavorite());
     }
 
     @Test

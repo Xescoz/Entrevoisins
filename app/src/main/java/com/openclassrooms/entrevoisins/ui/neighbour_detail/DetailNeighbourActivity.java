@@ -25,14 +25,14 @@ public class DetailNeighbourActivity extends AppCompatActivity {
     ImageButton backButton;
     @BindView(R.id.item_avatar_name)
     TextView avatarName;
-    @BindView(R.id.item_profil_name)
-    TextView profilName;
-    @BindView(R.id.item_profil_adress)
-    TextView profilAddress;
-    @BindView(R.id.item_profil_phone_number)
-    TextView profilPhoneNumber;
-    @BindView(R.id.item_profil_internet_address)
-    TextView profilInternetAddress;
+    @BindView(R.id.item_profile_name)
+    TextView profileName;
+    @BindView(R.id.item_profile_address)
+    TextView profileAddress;
+    @BindView(R.id.item_profile_phone_number)
+    TextView profilePhoneNumber;
+    @BindView(R.id.item_profile_internet_address)
+    TextView profileInternetAddress;
     @BindView(R.id.item_aboutme_content)
     TextView aboutMe;
     @BindView(R.id.add_favorite)
@@ -50,34 +50,17 @@ public class DetailNeighbourActivity extends AppCompatActivity {
         Neighbour neighbour = getIntent().getParcelableExtra("Neighbour");
 
         init(neighbour);
-
-        addFavorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(neighbour.isFavorite()){
-                    addFavorite.setImageResource(R.drawable.ic_star_white_24dp);
-                }
-                else{
-                addFavorite.setImageResource(R.drawable.ic_star_yellow_24dp);
-                }
-                mApiService.switchNeighbour(neighbour);
-            }
-        });
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        initListener(neighbour);
 
     }
-    public void init(Neighbour neighbour){
+
+    private void init(Neighbour neighbour){
         Glide.with(avatar).load(neighbour.getAvatarUrl()).into(avatar);
         avatarName.setText(neighbour.getName());
-        profilName.setText(neighbour.getName());
-        profilAddress.setText(neighbour.getAddress());
-        profilPhoneNumber.setText(neighbour.getPhoneNumber());
-        profilInternetAddress.setText("www.facebook.fr/"+neighbour.getName().toLowerCase());
+        profileName.setText(neighbour.getName());
+        profileAddress.setText(neighbour.getAddress());
+        profilePhoneNumber.setText(neighbour.getPhoneNumber());
+        profileInternetAddress.setText("www.facebook.fr/"+neighbour.getName().toLowerCase());
         aboutMe.setText(neighbour.getAboutMe());
 
         if(neighbour.isFavorite()){
@@ -87,4 +70,27 @@ public class DetailNeighbourActivity extends AppCompatActivity {
             addFavorite.setImageResource(R.drawable.ic_star_white_24dp);
         }
     }
+
+    private void initListener(Neighbour neighbour){
+        addFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(neighbour.isFavorite()){
+                    addFavorite.setImageResource(R.drawable.ic_star_white_24dp);
+                }
+                else {
+                    addFavorite.setImageResource(R.drawable.ic_star_yellow_24dp);
+                }
+                mApiService.switchNeighbour(neighbour);
+                neighbour.setFavorite(!neighbour.isFavorite());
+            }
+        });
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
 }
